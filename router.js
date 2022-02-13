@@ -1,5 +1,7 @@
 const router = require('express').Router()
-const db = require('better-sqlite3')('songs.db')
+const dbDirectory = process.env.NODE_ENV === 'production' ? 'databases/' : ''
+const dbPath = dbDirectory + 'VLK.db'
+const db = require('better-sqlite3')(dbPath)
 const auth = require('./auth')
 
 router.get('/', (req, res) => {

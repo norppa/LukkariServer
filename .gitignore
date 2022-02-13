@@ -1,5 +1,5 @@
 # Database
-songs.db
+*.db
 
 # Logs
 logs
