@@ -7,7 +7,7 @@ const auth = (req, res, next) => {
     }
     const basicAuth = Buffer.from(basicAuthInB64, 'base64').toString()
     const [username, password] = basicAuth.split(':')
-    if (username !== process.env.ADMIN_USERNAME || password !== process.env.ADMIN_PASSWORD) {
+    if (username !== process.env.VLK_ADMIN_USERNAME || password !== process.env.VLK_ADMIN_PASSWORD) {
         return res.status(401).send('Incorrect credentials')
     }
     next()
