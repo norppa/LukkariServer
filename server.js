@@ -9,4 +9,4 @@ server.use(express.json())
 
 server.use('/', require('./router'))
 
-server.listen(PORT, () => console.log('VLK Server running on port ' + PORT))
+server.listen(PORT, () => console.log('Lukkari Server running on port ' + PORT))
