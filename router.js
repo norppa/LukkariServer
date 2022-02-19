@@ -20,7 +20,8 @@ router.post('/', auth, (req, res) => {
     }
     const result = db.prepare('INSERT INTO songs (title, lyrics) VALUES (?,?)').run(title, lyrics)
     if (result.changes !== 1) return res.status(500).send('Database failure')
-    res.status(200).send()
+    console.log('result', result)
+    res.status(200).send({ id: result.lastInsertRowid, title, lyrics })
 })
 
 router.put('/:id', auth, (req, res) => {
@@ -35,7 +36,7 @@ router.delete('/', auth, (req, res) => {
     const deletions = req.body
     let failure = false
     const deleteSingle = db.prepare('DELETE FROM songs WHERE id = @id')
-    const deleteMany = db.transaction((songs)=> {
+    const deleteMany = db.transaction((songs) => {
         for (const song of songs) {
             const result = deleteSingle.run(song)
             if (result.changes !== 1) failure = true
@@ -44,22 +45,7 @@ router.delete('/', auth, (req, res) => {
     deleteMany(deletions)
     if (failure) res.status(500).send()
     res.send()
-    
-})
 
-router.get('/export', (req, res) => {
-    const songs = db.prepare('SELECT * FROM songs').all()
-    const output = songs.map(song => song.title + '\n\n' + song.lyrics).join('\n\n')
-    res.send(output)
-})
-
-router.post('/feedback', (req, res) => {
-    console.log('/feedback')
-    const { feedback, respondent} = req.body
-    if (!feedback) return res.status(400).send('Empty feedback not allowed')
-    const result = db.prepare('INSERT INTO feedback (feedback, respondent) VALUES (?,?)').run(feedback, respondent)
-    if (result.changes !== 1) return res.status(500).send('Database failure')
-    res.status(200).send()
 })
 
 module.exports = router
