@@ -1,6 +1,6 @@
 {
   "name": "lukkariserver",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js"
@@ -11,8 +11,8 @@
   "dependencies": {
     "better-sqlite3": "^7.4.5",
     "cors": "^2.8.5",
-    "dotenv": "^10.0.0",
-    "express": "^4.17.1"
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
